@@ -1,3 +1,4 @@
+import { IProduct } from "../domain/models/IProduct";
 import ProductRepository from "../infrastructure/ProductRepository";
 
 class ProductService {
@@ -7,15 +8,8 @@ class ProductService {
     this._repository = new ProductRepository();
   }
 
-  public async getProducts() {
-    const products = (await this._repository.getProducts()).map((p) => ({
-      id: p.id,
-      title: p.title,
-      price: p.price,
-      image: p.image,
-    }));
-
-    return products;
+  public async getProducts(): Promise<IProduct[]> {
+    return await this._repository.getProducts();
   }
 }
 
